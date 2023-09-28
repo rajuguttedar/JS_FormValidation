@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>HOME PAGE</h1>
+    <hr>
+    <h1 id="head1"></h1>
+    <h1 id="head2"></h1>
+    <h1 id="head3"></h1>
+    <h1 id="head4"></h1>
+    <button onclick="logout()">LogOut</button>
+    <button onclick="deleteAccount()">DeleteAccount</button>
+
+    <script>
+        function displayUserDetails()
+        {
+            let currentUser=JSON.parse(localStorage.getItem("currentuser"));
+
+
+            if(currentUser==null)// to validate user as logged in or not
+            {
+               window.location.assign("file:///C:/Users/whynew.in/Desktop/WebTechnology/JAVASCRIPT/DOM/HTML/newsignin.html")
+                alert("Login is not completed! please login and enter")
+            }
+
+            document.getElementById("head1").innerText=`Username: ${currentUser.username}`
+            document.getElementById("head2").innerText=`Email: ${currentUser.email}`
+            document.getElementById("head3").innerText=`Country: ${currentUser.country}`
+
+            let d1=new Date(currentUser.birth_date); // convert string date to date object
+
+            var age=new Date().getFullYear - d1.getFullYear(); // substract current year to date of birthh year
+
+            document.getElementById("head4").innerText=`Age: ${currentUser.age}`
+
+        }
+        displayUserDetails()
+
+        function logout()
+        {
+            localStorage.removeItem("currentuser");
+
+            window.location.assign("file:///C:/Users/whynew.in/Desktop/WebTechnology/JAVASCRIPT/DOM/HTML/newsignin.html");
+            alert("user logouut")
+        }
+
+        function deleteAccount()
+        {
+            prompt("Are you sure, If yes enter password to delete");
+            if(password==currentUser.password)
+            {
+                //remove current user
+                localStorage.removeItem("currentuser");
+                //delete the same object from the local storage users array list
+                let users=JSON.parse(localStorage.getItem("users"));
+                let ind=users.findIndex((user)=>{return currentUser.email==user.email});
+
+                users.splice(ind, 1);
+                localStorage.setItem("users",JSON.stringify(users));
+                alert("account deleted permanently")
+                window.location.assign("file:///C:/Users/whynew.in/Desktop/WebTechnology/JAVASCRIPT/DOM/HTML/newSignUp.html")
+            }
+            else{
+                alert("password incorrect, cannot delete an account")
+            }
+        }
+    </script>
+</body>
+</html>

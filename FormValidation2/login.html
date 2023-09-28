@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        #formbox{
+            background-color: rgb(232, 232, 0);
+            width: 350px;
+            height: auto;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        #formbox input{
+            display: block;
+            width: 90%;
+            height: 25px;
+            margin: 4px auto;
+            border-radius: 4px;
+            border:  solid 1px gray;
+        }
+        #formbox input[type="radio"]
+        {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            accent-color:rgb(232, 232, 0) ;
+        }
+
+        button{
+            padding: 6px 20px;
+            font-size: 17px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+        <h1>Login</h1>
+        <hr>
+
+        <div id="formbox">
+            <input type="email" placeholder="email" id="email">
+            <input type="password" placeholder="password" id="pwd">
+            <button onclick="loginuser()">Login</button>
+        </div>
+    If you don't have an account ? <a href="./signup.html">Sign Up</a>
+    </div>
+
+    <script>
+        function loginuser()
+        {
+            var email = document.getElementById("email").value;
+            var pwd = document.getElementById("pwd").value;
+
+           let users =  JSON.parse(localStorage.getItem("userdetails2"))
+            if(email==users.email)
+            {
+                if(pwd==users.password)
+                {
+                    alert("login successfull");
+                    window.location.assign("./home.html")
+                }
+                else
+                {
+                    alert("wrong password !!!!");
+                }
+            }
+            else
+            {
+                alert("user not found ");   
+            }
+        }
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    body{
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    #formbox{
+        background-color: rgb(232,232,0);
+        width: 350px;
+        height: auto;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    #formbox input{
+        display: block;
+        width: 90%;
+        height: 25px;
+        margin: 4px auto;
+        border-radius: 4px;
+        border: solid 1px gray;
+        outline: none;
+    }
+
+    #formbox input[type="radio"]{
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        accent-color: rgb(232,232,0);
+    }
+    button{
+        padding: 6px 20px;
+        font-size: 17px;
+        margin: 10px;
+        border-radius: 4px;
+        border: solid 1px gray;
+    }
+</style>
+<body>
+    <div>
+    <h1>Create a new account</h1>
+    <hr>
+    <div id="formbox">
+        <input type="text" placeholder="username" id="uname">
+        <input type="email" placeholder="email" id="email">
+        <input type="password" placeholder="password" id="pwd">
+        <input type="number" placeholder="age" id="age">
+        <input type="date" placeholder="date of birth" id="dob">
+        <fieldset>
+            <legend>gender</legend>
+            <input type="radio" name="gender" id="m" value="male"><label for="m">Male</label>
+            <input type="radio" name="gender" id="f" value="female"><label for="f">Female</label>
+        </fieldset>
+        <button onclick="createUsers()">SignUp</button>
+    </div>
+    already have an account ? <a href="./login.html">Login In</a>
+</div>
+
+<script>
+    function createUsers()
+    {
+        var uname=document.getElementById("uname").value;
+        var email=document.getElementById("email").value;
+        var pwd=document.getElementById("pwd").value;
+        var age=document.getElementById("age").value;
+        var dob=document.getElementById("dob").value;
+        var gender;
+        var options=document.getElementsByName("gender");
+        for (let i = 0; i < options.length; i++) 
+        {
+            if(options[i].checked)            
+            {
+               gender=options[i].value;
+            }
+        }
+
+        if(!uname || !email || !pwd || !age || !dob || !gender){
+            alert("all fields are mandatory")
+        }
+        else{
+                let userdetails2 = {
+                username: uname,
+                email: email,
+                password: pwd,
+                age: age,
+                birth_date: dob,
+                gender: gender
+            }
+
+            localStorage.setItem("userdetails2", JSON.stringify(userdetails2));
+            alert("SignUp Successfull")
+            window.open("./login.html")
+        }
+ 
+    }
+</script>
+</body>
+</html>

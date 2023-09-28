@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
+        }
+        body{
+            background-color: rgb(17, 213, 148);
+            width: 100vw;
+            height: 100vh;
+        }
+        h1{
+            text-align: center;
+            color: white;
+        }
+        hr{
+            border: solid 1px white;
+            width: 80%;
+            margin: auto;
+        }
+        div{
+            transform: scale(1.1);
+            background-color: white;
+            width: 450px;
+            height: auto;
+            padding: 20px;
+            margin: 70px auto;
+            border-radius: 20px;
+            box-sizing: border-box;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.463);
+            text-align: center;
+        }
+        input{
+            display: block;
+            width: 90%;
+            height: 40px;
+            margin: 5px auto;
+        }
+        input[type="radio"]{
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+
+        }
+        button{
+            background-color: rgb(17, 213, 148);
+            padding: 10px 25px;
+            margin: 20px auto;
+            border: solid 2px white;
+            border-radius: 6px;
+        }
+        button:hover{
+            background-color:white;
+            border: solid 2px rgb(17, 213, 148);
+        }
+    </style>
+</head>
+<body>
+    <h1>Signup Page</h1>
+    <hr>
+
+    <div>
+        <input type="text" placeholder="Username" id="uname">
+        <input type="email" placeholder="Email" id="email">
+        <input type="password" placeholder="Password" id="pwd">
+        <input type="date" id="dob">
+
+        <fieldset>
+            <legend>Gender</legend>
+            <input type="radio" name="gender" id="f" value="Male"><label for="f">Male</label>
+            <input type="radio" name="gender" id="m" value="Female"><label for="m">Female</label>
+        </fieldset>
+
+        <fieldset>
+            <legend>Country</legend>
+            <select id="country">
+                <option hidden>SELECT</option>
+                <option value="India">India</option>
+                <option value="Australia">Australia</option>
+                <option value="America">America</option>
+                <option value="England">England</option>
+                <option value="Srilanka">Srilanka</option>
+                <option value="Bangladesh">Bangladesh</option>
+                <option value="Russia">Russia</option>
+            </select>
+        </fieldset>
+
+        <button onclick="addNewUser()">Sign up</button>
+    </div>
+
+    <script>
+
+        (()=>{ 
+           if( !localStorage.getItem("users") )
+           {
+                localStorage.setItem("users" , "[]")
+           }
+        })()
+
+
+        function addNewUser()
+        {
+            let newuser = { 
+                username :  document.getElementById("uname").value ,
+                email : document.getElementById("email").value ,
+                password : document.getElementById("pwd").value ,
+                birth_date : document.getElementById("dob").value ,
+                country : document.getElementById("country").value,
+                gender:""
+            }
+            let options = document.getElementsByName("gender");
+            for (let i = 0; i < options.length; i++) 
+            {
+                if( options[i].checked )
+                {
+                    newuser.gender = options[i].value;
+                }
+            }
+
+           let users = JSON.parse(localStorage.getItem("users"));
+
+           users.push(newuser);
+
+           localStorage.setItem("users" , JSON.stringify(users));
+           alert("Account has beem created");
+        }
+    </script>
+</body>
+</html>

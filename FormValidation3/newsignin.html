@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
+        }
+        body{
+            background-color: rgb(17, 213, 148);
+            width: 100vw;
+            height: 100vh;
+        }
+        h1{
+            text-align: center;
+            color: white;
+        }
+        hr{
+            border: solid 1px white;
+            width: 80%;
+            margin: auto;
+        }
+        div{
+            transform: scale(1.1);
+            background-color: white;
+            width: 450px;
+            height: auto;
+            padding: 20px;
+            margin: 70px auto;
+            border-radius: 20px;
+            box-sizing: border-box;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.463);
+            text-align: center;
+        }
+        input{
+            display: block;
+            width: 90%;
+            height: 40px;
+            margin: 5px auto;
+        }
+        input[type="radio"]{
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+
+        }
+        button{
+            background-color: rgb(17, 213, 148);
+            padding: 10px 25px;
+            margin: 20px auto;
+            border: solid 2px white;
+            border-radius: 6px;
+        }
+        button:hover{
+            background-color:white;
+            border: solid 2px rgb(17, 213, 148);
+        }
+    </style>
+</head>
+<body>
+    <h1>Login Page</h1>
+    <hr>
+
+    <div>
+        <input type="email" placeholder="Email" id="email" required>
+        <input type="password" placeholder="Password" id="pwd" required>
+
+        <button onclick="validateUser()">Log in</button>
+    </div>
+
+    <script>
+        function validateUser()
+        {
+           // take values from input
+           let email = document.getElementById("email").value;
+           let password = document.getElementById("pwd").value;
+
+            // retreve entire string array from LS and convert to js array
+           let users = JSON.parse(localStorage.getItem("users"))
+
+            // extract the object where email id is same as typed email in the input
+            let userdetails;
+            for (let i = 0; i < users.length; i++) 
+            {
+                    if( users[i].email == email)
+                    {
+                        userdetails = users[i];
+                    }     
+            }
+
+
+            // validate according to the value
+            if(userdetails==undefined)
+            {
+                alert("User does not exsit in database !!!!")
+            }
+            else if(userdetails.password != password)
+            {
+                alert("Password missmatch , please give valid password !!!!")
+            }
+            else
+            {
+                alert("login successfull");
+                localStorage.setItem("currentuser",JSON.stringify(userdetails))
+                window.location.assign("file:///C:/Users/whynew.in/Desktop/WebTechnology/NEW_WEB/JAVASCRIPT/DOM/HTML/newHome.html")
+            }
+        }
+    </script>
+
+</body>
+</html>
